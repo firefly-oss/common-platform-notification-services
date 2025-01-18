@@ -1,8 +1,8 @@
 spring:
   application:
-    name: common-platform-document-mgmt
+    name: common-platform-notification-services
     version: 1.0.0
-    description: Enterprise Content Management Core Application
+    description: Notification Services Core Application
     team:
       name: Catalis Development
       email: dev@catalis.com
