@@ -20,7 +20,7 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/api/v1/sms")
-@Tag(name = "SMS Controller", description = "API for managing SMS-related operations.")
+@Tag(name = "SMS Notifications", description = "API for managing SMS-related operations.")
 public class SMSController {
 
     @Autowired

@@ -31,6 +31,10 @@
             <groupId>com.catalis</groupId>
             <artifactId>common-platform-notification-services-providers-sendgrid</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.catalis</groupId>
+            <artifactId>common-platform-notification-services-providers-firebase</artifactId>
+        </dependency>
 
         <!-- Common Libraries -->
         <dependency>

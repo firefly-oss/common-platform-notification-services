@@ -1,0 +1,64 @@
+package com.catalis.core.notifications.web.controllers.push.v1;
+
+import com.catalis.core.notifications.core.services.push.v1.PushServiceImpl;
+import com.catalis.core.notifications.interfaces.dtos.push.v1.PushNotificationRequest;
+import com.catalis.core.notifications.interfaces.dtos.push.v1.PushNotificationResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Mono;
+
+@RestController
+@RequestMapping("/api/v1/push")
+@Tag(name = "Push Notifications", description = "APIs for sending push notifications")
+public class PushController {
+
+    @Autowired
+    private PushServiceImpl service;
+
+    @PostMapping
+    @Operation(
+            summary = "Send a push notification",
+            description = "This endpoint is used to send push notifications to a given device token.",
+            requestBody = @RequestBody(
+                    description = "Details of the push notification to be sent",
+                    required = true,
+                    content = @Content(
+                            schema = @Schema(implementation = PushNotificationRequest.class)
+                    )
+            ),
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Push notification sent successfully",
+                            content = @Content(
+                                    schema = @Schema(implementation = PushNotificationResponse.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Invalid request",
+                            content = @Content
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "Internal server error",
+                            content = @Content
+                    )
+            }
+    )
+    public Mono<ResponseEntity<PushNotificationResponse>> sendPush(
+            @org.springframework.web.bind.annotation.RequestBody PushNotificationRequest request
+    ) {
+        return service.sendPush(request)
+                .map(ResponseEntity::ok);
+    }
+}

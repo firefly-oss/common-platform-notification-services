@@ -21,7 +21,7 @@ import reactor.core.publisher.Mono;
 @Validated
 @RestController
 @RequestMapping("/api/v1/email")
-@Tag(name = "Email", description = "Email sending operations")
+@Tag(name = "Email Notifications", description = "Email sending operations")
 @RequiredArgsConstructor
 public class EmailController {
 

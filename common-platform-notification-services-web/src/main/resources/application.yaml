@@ -75,6 +75,10 @@ twilio:
 sendgrid:
   api-key: ${SENDGRID_API_KEY}
 
+firebase:
+  config:
+    credentials: ${FIREBASE_CREDENTIALS}
+
 ---
 spring:
   config:
