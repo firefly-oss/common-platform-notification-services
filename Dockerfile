@@ -1,6 +1,6 @@
 FROM eclipse-temurin:21-jdk
 
-COPY target/common-platform-notification-services-web-*.jar /run/common-platform-notification-services-web.jar
+COPY common-platform-notification-services-web-*.jar /run/common-platform-notification-services-web.jar
 
 USER 1001
 
