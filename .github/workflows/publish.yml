@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-publish:
-    uses: catalis-vc/cicd/.github/workflows/build-maven.yaml@main
+    uses: firefly-oss/cicd/.github/workflows/build-maven.yaml@main
     with:
       java-version: "21"
       skip-tests: false
@@ -17,7 +17,7 @@ jobs:
   build-and-publish-docker:
     name: Docker Publish to ACR
     needs: build-and-publish
-    uses: catalis-vc/cicd/.github/workflows/docker-publish.yaml@main
+    uses: firefly-oss/cicd/.github/workflows/docker-publish.yaml@main
     with:
       dockerfile-path: "./Dockerfile"
       azure-registry-name: "catalis.azurecr.io"
