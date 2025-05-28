@@ -20,6 +20,8 @@
         <module>common-platform-notification-services-providers-twilio</module>
         <module>common-platform-notification-services-providers-sendgrid</module>
         <module>common-platform-notification-services-providers-firebase</module>
+        <module>common-platform-notification-services-sdk</module>
+
     </modules>
 
 
@@ -48,6 +50,11 @@
             </dependency>
             <dependency>
                 <groupId>com.catalis</groupId>
+                <artifactId>common-platform-notification-services-sdk</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.catalis</groupId>
                 <artifactId>common-platform-notification-services-models</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -58,7 +65,7 @@
             </dependency>
             <dependency>
                 <groupId>com.catalis</groupId>
-                <artifactId>common-platform-product-mgmt-web</artifactId>
+                <artifactId>common-platform-notification-services-web</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

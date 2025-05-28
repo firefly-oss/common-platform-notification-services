@@ -1,0 +1,185 @@
+openapi: 3.0.1
+info:
+  title: common-platform-notification-services
+  description: Notification Services Core Application
+  contact:
+    name: Catalis Development
+    email: dev@catalis.com
+  version: 1.0.0
+servers:
+  - url: /
+    description: Current Environment
+tags:
+  - name: SMS Notifications
+    description: API for managing SMS-related operations.
+  - name: Email Notifications
+    description: Email sending operations
+paths:
+  /api/v1/sms/send:
+    post:
+      tags:
+        - SMS Notifications
+      summary: Send an SMS message
+      description: >-
+        Endpoint to send an SMS message using the specified phone number and
+        text message.
+      operationId: sendSMS
+      parameters:
+        - name: X-Idempotency-Key
+          in: header
+          description: >-
+            Unique key for idempotent requests. If provided, ensures that
+            identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        description: Details of the SMS to be sent.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SMSRequestDTO'
+            example:
+              phoneNumber: '+1234567890'
+              message: 'Hello, World!'
+        required: true
+      responses:
+        '200':
+          description: SMS sent successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SMSResponseDTO'
+              example:
+                messageId: '12345'
+                status: SENT
+                timestamp: 1696433658000
+        '400':
+          description: >-
+            Invalid request details. Ensure that the phone number and message
+            are valid.
+          content:
+            application/json:
+              example:
+                status: FAILED
+                errorMessage: Invalid phone number.
+                timestamp: 1696433658000
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              example:
+                status: FAILED
+                errorMessage: Provider service unavailable.
+                timestamp: 1696433658000
+  /api/v1/email/send:
+    post:
+      tags:
+        - Email Notifications
+      summary: Send email
+      description: Sends an email using the configured provider
+      operationId: sendEmail
+      parameters:
+        - name: X-Idempotency-Key
+          in: header
+          description: >-
+            Unique key for idempotent requests. If provided, ensures that
+            identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        description: Email request payload
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: Email sent successfully
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EmailResponseDTO'
+        '400':
+          description: Invalid email request
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    SMSRequestDTO:
+      type: object
+      properties:
+        phoneNumber:
+          type: string
+        message:
+          type: string
+    SMSResponseDTO:
+      type: object
+      properties:
+        messageId:
+          type: string
+        status:
+          type: string
+        errorMessage:
+          type: string
+        timestamp:
+          type: integer
+          format: int64
+    EmailAttachmentDTO:
+      type: object
+      properties:
+        filename:
+          type: string
+        content:
+          type: array
+          items:
+            type: string
+            format: byte
+        contentType:
+          type: string
+    EmailRequestDTO:
+      required:
+        - from
+        - subject
+        - to
+      type: object
+      properties:
+        from:
+          type: string
+        to:
+          type: string
+        cc:
+          type: array
+          items:
+            type: string
+        bcc:
+          type: array
+          items:
+            type: string
+        subject:
+          type: string
+        text:
+          type: string
+        html:
+          type: string
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmailAttachmentDTO'
+    EmailResponseDTO:
+      type: object
+      properties:
+        messageId:
+          type: string
+        status:
+          type: string
+          enum:
+            - SENT
+            - FAILED
+        errorMessage:
+          type: string
+        timestamp:
+          type: integer
+          format: int64

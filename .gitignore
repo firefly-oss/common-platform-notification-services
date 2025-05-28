@@ -10,6 +10,9 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
+# MacOs
+.DS_Store
+
 # Package Files #
 *.jar
 *.war
@@ -23,11 +26,11 @@
 hs_err_pid*
 replay_pid*
 
-
-# IntelliJ IDEA files
+# IntelliJ IDEA
 .idea/
-*.iml
 *.iws
+*.iml
+*.ipr
 
-# Target folder
-/target/
+# Maven
+target/

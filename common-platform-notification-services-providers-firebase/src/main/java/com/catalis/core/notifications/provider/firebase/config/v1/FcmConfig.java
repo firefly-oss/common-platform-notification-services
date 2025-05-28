@@ -12,9 +12,9 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-@Configuration
+//@Configuration
 public class FcmConfig {
-    @Bean
+    //@Bean
     public FirebaseApp firebaseApp(FcmProperties fcmProperties) throws IOException {
         // 1. Read the environment variable with the JSON content:
         // We are doing that to avoid store the credentials at disk
@@ -37,7 +37,7 @@ public class FcmConfig {
         return FirebaseApp.initializeApp(options, "catalis-vc");
     }
 
-    @Bean
+    //@Bean
     public FirebaseMessaging firebaseMessaging(FirebaseApp firebaseApp) {
         return FirebaseMessaging.getInstance(firebaseApp);
     }
