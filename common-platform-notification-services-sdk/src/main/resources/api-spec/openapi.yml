@@ -20,16 +20,12 @@ paths:
       tags:
         - SMS Notifications
       summary: Send an SMS message
-      description: >-
-        Endpoint to send an SMS message using the specified phone number and
-        text message.
+      description: Endpoint to send an SMS message using the specified phone number and text message.
       operationId: sendSMS
       parameters:
         - name: X-Idempotency-Key
           in: header
-          description: >-
-            Unique key for idempotent requests. If provided, ensures that
-            identical requests with the same key will only be processed once.
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
           required: false
           schema:
             type: string
@@ -41,7 +37,7 @@ paths:
               $ref: '#/components/schemas/SMSRequestDTO'
             example:
               phoneNumber: '+1234567890'
-              message: 'Hello, World!'
+              message: Hello, World!
         required: true
       responses:
         '200':
@@ -55,9 +51,7 @@ paths:
                 status: SENT
                 timestamp: 1696433658000
         '400':
-          description: >-
-            Invalid request details. Ensure that the phone number and message
-            are valid.
+          description: Invalid request details. Ensure that the phone number and message are valid.
           content:
             application/json:
               example:
@@ -82,9 +76,7 @@ paths:
       parameters:
         - name: X-Idempotency-Key
           in: header
-          description: >-
-            Unique key for idempotent requests. If provided, ensures that
-            identical requests with the same key will only be processed once.
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
           required: false
           schema:
             type: string
