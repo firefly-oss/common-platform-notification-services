@@ -51,7 +51,7 @@ public class FcmConfig {
                 .build();
 
         // 4. Initialize the app (if not already initialized):
-        return FirebaseApp.initializeApp(options, "catalis-vc");
+        return FirebaseApp.initializeApp(options, "firefly-vc");
     }
 
     //@Bean
