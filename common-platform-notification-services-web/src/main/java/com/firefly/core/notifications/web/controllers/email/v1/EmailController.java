@@ -17,7 +17,7 @@
 
 package com.firefly.core.notifications.web.controllers.email.v1;
 
-import com.firefly.core.notifications.core.services.email.v1.EmailServiceImpl;
+import com.firefly.core.notifications.core.services.email.v1.EmailService;
 import com.firefly.core.notifications.interfaces.dtos.email.v1.EmailRequestDTO;
 import com.firefly.core.notifications.interfaces.dtos.email.v1.EmailResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -42,7 +42,7 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class EmailController {
 
-    private final EmailServiceImpl service;
+private final EmailService service;
 
     @Operation(
             summary = "Send email",

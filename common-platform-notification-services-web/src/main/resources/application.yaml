@@ -71,6 +71,11 @@ sendgrid:
 #  api-key: ${RESEND_API_KEY}
 #  default-from: "noreply@example.com"
 
+# Default provider selection when multiple email providers are configured
+notifications:
+  email:
+    provider: ${NOTIFICATIONS_EMAIL_PROVIDER:}
+
 # Firebase Cloud Messaging (Push) Provider - comment out to disable
 firebase:
   project-id: ${FIREBASE_PROJECT_ID}
