@@ -41,6 +41,11 @@
             <artifactId>lib-notifications-firebase</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.firefly</groupId>
+            <artifactId>lib-notifications-resend</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <!-- Common Libraries -->
         <dependency>
