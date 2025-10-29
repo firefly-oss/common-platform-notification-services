@@ -123,11 +123,11 @@ The microservice supports multiple Spring profiles (`dev`, `testing`, `prod`). Y
 
 ---
 
-## Multiple Email Providers
+## Email Provider Selection (Mutual Exclusivity)
 
-You can enable multiple email providers simultaneously (e.g., both SendGrid and Resend). The application exposes a single `EmailProvider` via a delegating bean marked as `@Primary` that selects the concrete adapter based on configuration.
+Exactly one email provider must be active at a time. The service will fail to start if more than one `EmailProvider` bean is present.
 
-Set the default provider with:
+Select the provider via configuration:
 
 ```yaml
 notifications:
@@ -135,13 +135,9 @@ notifications:
     provider: resend   # or sendgrid
 ```
 
-Alternatively, you can set the environment variable:
+Then configure only that provider's credentials (e.g., `resend.api-key` or `sendgrid.api-key`). Do not configure more than one email provider at once.
 
-```bash
-export NOTIFICATIONS_EMAIL_PROVIDER=resend
-```
-
-If only one email provider is configured, it is used automatically. If multiple are configured and the property is missing, the app will fail fast at startup with a clear error message.
+If multiple providers are configured, startup will fail with a clear error. This preserves hexagonal boundaries by avoiding runtime routing in the domain layer.
 
 ---
 

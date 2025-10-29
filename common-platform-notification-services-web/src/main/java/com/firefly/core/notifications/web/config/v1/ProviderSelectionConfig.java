@@ -31,51 +31,14 @@ import java.util.Optional;
 @Configuration
 public class ProviderSelectionConfig {
 
-    @Autowired
-    private NotificationsSelectionProperties props;
-
     @Bean
-    @Primary
-    public EmailProvider delegatingEmailProvider(Map<String, EmailProvider> providers) {
-        if (providers == null || providers.isEmpty()) {
-            throw new IllegalStateException("No EmailProvider beans found. Add a provider adapter dependency and configuration.");
-        }
-        if (providers.size() == 1) {
-            Map.Entry<String, EmailProvider> only = providers.entrySet().iterator().next();
-            log.info("Using only available EmailProvider bean: {}", only.getKey());
-            return only.getValue();
-        }
-
-        String desired = Optional.ofNullable(props.getEmail().getProvider())
-                .map(s -> s.trim().toLowerCase(Locale.ROOT))
-                .orElse(null);
-
-        if (desired == null || desired.isBlank()) {
-            throw new IllegalStateException("Multiple EmailProvider beans found " + providers.keySet() +
-                    ". Please set 'notifications.email.provider' to one of: resend, sendgrid, or a bean name.");
-        }
-
-        // Try exact bean name first
-        if (providers.containsKey(desired)) {
-            log.info("Using EmailProvider bean by exact name: {}", desired);
-            return providers.get(desired);
-        }
-
-        // Try alias match by substring (resend -> resendEmailProvider, sendgrid -> sendGridEmailProvider)
-        String alias = desired;
-        EmailProvider matched = providers.entrySet().stream()
-                .filter(e -> e.getKey().toLowerCase(Locale.ROOT).contains(alias))
-                .map(Map.Entry::getValue)
-                .reduce((a, b) -> {
-                    throw new IllegalStateException("'notifications.email.provider=" + desired + "' matched multiple beans: " + providers.keySet());
-                })
-                .orElse(null);
-
-        if (matched != null) {
-            log.info("Using EmailProvider bean by alias '{}': matched.", desired);
-            return matched;
-        }
-
-        throw new IllegalStateException("Could not resolve EmailProvider for 'notifications.email.provider=" + desired + "'. Available beans: " + providers.keySet());
+    public org.springframework.beans.factory.SmartInitializingSingleton providerUniquenessValidator(org.springframework.context.ApplicationContext ctx) {
+        return () -> {
+            Map<String, EmailProvider> emailProviders = ctx.getBeansOfType(EmailProvider.class);
+            if (emailProviders.size() > 1) {
+                throw new IllegalStateException("Only one EmailProvider can be active at a time. Found: " + emailProviders.keySet() +
+                        ". Configure 'notifications.email.provider' to a single value and properties for that provider only.");
+            }
+        };
     }
 }
