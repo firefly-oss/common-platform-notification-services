@@ -14,14 +14,8 @@
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>common-platform-notification-services-core</module>
-        <module>common-platform-notification-services-interfaces</module>
         <module>common-platform-notification-services-web</module>
-        <module>common-platform-notification-services-providers-twilio</module>
-        <module>common-platform-notification-services-providers-sendgrid</module>
-        <module>common-platform-notification-services-providers-firebase</module>
         <module>common-platform-notification-services-sdk</module>
-
     </modules>
 
 
@@ -42,12 +36,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- Internal modules -->
-            <dependency>
-                <groupId>com.firefly</groupId>
-                <artifactId>common-platform-notification-services-interfaces</artifactId>
-                <version>${project.version}</version>
-            </dependency>
             <dependency>
                 <groupId>com.firefly</groupId>
                 <artifactId>common-platform-notification-services-sdk</artifactId>
@@ -55,32 +43,7 @@
             </dependency>
             <dependency>
                 <groupId>com.firefly</groupId>
-                <artifactId>common-platform-notification-services-models</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.firefly</groupId>
-                <artifactId>common-platform-notification-services-core</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.firefly</groupId>
                 <artifactId>common-platform-notification-services-web</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.firefly</groupId>
-                <artifactId>common-platform-notification-services-providers-twilio</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.firefly</groupId>
-                <artifactId>common-platform-notification-services-providers-sendgrid</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.firefly</groupId>
-                <artifactId>common-platform-notification-services-providers-firebase</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

@@ -18,14 +18,28 @@
     </properties>
 
     <dependencies>
-        <!-- Internal modules -->
+        <!-- Notifications Core (ports & services) -->
         <dependency>
             <groupId>com.firefly</groupId>
-            <artifactId>common-platform-notification-services-core</artifactId>
+            <artifactId>lib-notifications-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- Provider adapters: include the ones you plan to use -->
+        <dependency>
+            <groupId>com.firefly</groupId>
+            <artifactId>lib-notifications-twilio</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.firefly</groupId>
-            <artifactId>common-platform-notification-services-interfaces</artifactId>
+            <artifactId>lib-notifications-sendgrid</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.firefly</groupId>
+            <artifactId>lib-notifications-firebase</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <!-- Common Libraries -->
