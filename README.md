@@ -1,5 +1,63 @@
 # Common Platform Notification Services
 
+Reactive Spring Boot microservice exposing unified APIs to send Email, SMS, and Push notifications.
+
+## Modules
+
+- `common-platform-notification-services-web`: Web application (controllers, OpenAPI, Actuator)
+- `common-platform-notification-services-sdk`: Generated Java SDK (from OpenAPI)
+
+Note: Provider ports and implementations now live in external libraries:
+- Core ports/services: `com.firefly:lib-notifications-core`
+- Adapters: `com.firefly:lib-notifications-twilio` (SMS), `com.firefly:lib-notifications-sendgrid` (Email), `com.firefly:lib-notifications-firebase` (Push)
+(Optionally: `com.firefly:lib-notifications-resend` for Email)
+
+## Endpoints
+
+- POST `/api/v1/email/send`
+- POST `/api/v1/sms/send`
+- POST `/api/v1/push`
+
+See `common-platform-notification-services-web/README.md` for request/response schemas.
+
+## Configure providers (application.yml)
+
+```yaml
+# Twilio (SMS)
+twilio:
+  config:
+    accountSid: ${TWILIO_ACCOUNT_SID}
+    authToken: ${TWILIO_AUTH_TOKEN}
+    phoneNumber: "+1XXXXXXXXXX"
+
+# SendGrid (Email)
+sendgrid:
+  apiKey: ${SENDGRID_API_KEY}
+
+# Firebase (Push)
+firebase:
+  credentialsPath: /path/to/service-account.json   # optional, ADC if omitted
+  projectId: your-project-id                        # optional
+
+# Resend (Email) - if using lib-notifications-resend instead of SendGrid
+resend:
+  apiKey: ${RESEND_API_KEY}
+  defaultFrom: noreply@example.com
+```
+
+To switch email providers, include the desired adapter on the classpath and remove the other to avoid multiple beans.
+
+## Build and run
+
+```bash
+mvn -q -DskipTests -f common-platform-notification-services/pom.xml package
+java -jar common-platform-notification-services-web/target/common-platform-notification-services-web-1.0.0-SNAPSHOT.jar
+```
+
+## OpenAPI
+- Swagger UI: http://localhost:8080/swagger-ui.html
+- OpenAPI JSON: http://localhost:8080/v3/api-docs
+
 A microservice component of the Firefly platform that provides unified notification capabilities through multiple channels: Email, SMS, and Push Notifications.
 
 ## Overview

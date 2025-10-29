@@ -33,15 +33,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
-//@RestController
-//@RequestMapping("/api/v1/push")
-//@Tag(name = "Push Notifications", description = "APIs for sending push notifications")
+@RestController
+@RequestMapping("/api/v1/push")
+@Tag(name = "Push Notifications", description = "APIs for sending push notifications")
 public class PushController {
 
-    //@Autowired
+    @Autowired
     private PushServiceImpl service;
 
-    //@PostMapping
+    @PostMapping
     @Operation(
             summary = "Send a push notification",
             description = "This endpoint is used to send push notifications to a given device token.",
