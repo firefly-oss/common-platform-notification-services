@@ -17,7 +17,7 @@
 
 package com.firefly.core.notifications.web.controllers.push.v1;
 
-import com.firefly.core.notifications.core.services.push.v1.PushServiceImpl;
+import com.firefly.core.notifications.core.services.push.v1.PushService;
 import com.firefly.core.notifications.interfaces.dtos.push.v1.PushNotificationRequest;
 import com.firefly.core.notifications.interfaces.dtos.push.v1.PushNotificationResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -39,7 +39,7 @@ import reactor.core.publisher.Mono;
 public class PushController {
 
     @Autowired
-    private PushServiceImpl service;
+private PushService service;
 
     @PostMapping
     @Operation(

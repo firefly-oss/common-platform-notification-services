@@ -17,7 +17,7 @@
 
 package com.firefly.core.notifications.web.controllers.sms.v1;
 
-import com.firefly.core.notifications.core.services.sms.v1.SMSServiceImpl;
+import com.firefly.core.notifications.core.services.sms.v1.SMSService;
 import com.firefly.core.notifications.interfaces.dtos.sms.v1.SMSRequestDTO;
 import com.firefly.core.notifications.interfaces.dtos.sms.v1.SMSResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -41,7 +41,7 @@ import reactor.core.publisher.Mono;
 public class SMSController {
 
     @Autowired
-    private SMSServiceImpl service;
+private SMSService service;
 
     @Operation(
             summary = "Send an SMS message",
