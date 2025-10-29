@@ -16,29 +16,27 @@
 
 package com.firefly.core.notifications.web.config.v1;
 
-import com.firefly.core.notifications.interfaces.interfaces.providers.email.v1.EmailProvider;
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-
-import java.util.Locale;
-import java.util.Map;
-import java.util.Optional;
 
 @Slf4j
 @Configuration
 public class ProviderSelectionConfig {
 
-    @Bean
-    public org.springframework.beans.factory.SmartInitializingSingleton providerUniquenessValidator(org.springframework.context.ApplicationContext ctx) {
-        return () -> {
-            Map<String, EmailProvider> emailProviders = ctx.getBeansOfType(EmailProvider.class);
-            if (emailProviders.size() > 1) {
-                throw new IllegalStateException("Only one EmailProvider can be active at a time. Found: " + emailProviders.keySet() +
-                        ". Configure 'notifications.email.provider' to a single value and properties for that provider only.");
+    @Autowired(required = false)
+    private NotificationsSelectionProperties props;
+
+    @PostConstruct
+    public void logProviderSelection() {
+        if (props != null && props.getEmail() != null) {
+            String selected = props.getEmail().getProvider();
+            if (selected != null && !selected.isBlank()) {
+                log.info("notifications.email.provider='{}' — only that adapter will be instantiated.", selected);
+            } else {
+                log.info("notifications.email.provider not set — no email adapter will be loaded.");
             }
-        };
+        }
     }
 }

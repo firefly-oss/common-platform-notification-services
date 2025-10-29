@@ -123,11 +123,9 @@ The microservice supports multiple Spring profiles (`dev`, `testing`, `prod`). Y
 
 ---
 
-## Email Provider Selection (Mutual Exclusivity)
+## Email Provider Selection
 
-Exactly one email provider must be active at a time. The service will fail to start if more than one `EmailProvider` bean is present.
-
-Select the provider via configuration:
+Select which email provider to instantiate via configuration (others will be ignored at startup):
 
 ```yaml
 notifications:
@@ -137,7 +135,7 @@ notifications:
 
 Then configure only that provider's credentials (e.g., `resend.api-key` or `sendgrid.api-key`). Do not configure more than one email provider at once.
 
-If multiple providers are configured, startup will fail with a clear error. This preserves hexagonal boundaries by avoiding runtime routing in the domain layer.
+If multiple providers are configured, only the one matching `notifications.email.provider` will be loaded; the rest will be ignored. If none is selected, no email adapter is created.
 
 ---
 
